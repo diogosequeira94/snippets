@@ -2,6 +2,9 @@
 
 import { db } from '@/db';
 
-export async function editSnippet(){
-    await db.snippet.update
+export async function editSnippet(id: number, code: string){
+    await db.snippet.update({
+        where: { id },
+        data: { code }
+    });
 }
