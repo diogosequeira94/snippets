@@ -1,10 +1,12 @@
-'use client'; 
+"use client";
 
 import * as actions from "@/actions/actions";
 import { useFormState } from "react-dom";
 
 export default function SnippetCreatePage() {
-  const [formState, action] = useFormState(actions.createSnippet, { message: ''});
+  const [formState, action] = useFormState(actions.createSnippet, {
+    message: "",
+  });
 
   return (
     <form action={action}>
@@ -32,9 +34,11 @@ export default function SnippetCreatePage() {
           />
         </div>
 
-        <div>
-          {formState.message}
-        </div>
+        {formState.message ? (
+          <div className="my-2 p-2 bg-red-200 border rounded border-red-400">
+            {formState.message}
+          </div>
+        ) : null}
 
         <button type="submit" className="rounded p-2 bg-blue-200">
           Create
