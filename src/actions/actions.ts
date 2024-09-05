@@ -9,7 +9,6 @@ export async function createSnippet(
   formData: FormData
 ) {
   try {
-    // Check the user's inputs and make sure if they're valid
     const title = formData.get("title");
     const code = formData.get("code");
 
@@ -25,7 +24,6 @@ export async function createSnippet(
       };
     }
 
-    // Create a new record in the database
     await db.snippet.create({
       data: {
         title,
