@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/db";
-import * as actions from '@/actions/actions';
+import * as actions from "@/actions/actions";
 
 interface SnippetShowPageProps {
   params: {
@@ -26,9 +26,14 @@ export default async function SnippetShowPage(props: SnippetShowPageProps) {
       <div className="flex m-4 justify-between items-center">
         <h1 className="text-xl font-bold">{snippet.title}</h1>
         <div className="flex gap-4">
-          <Link href={`/snippets/${snippet.id}/edit`} className="p-2 border rounded">Edit</Link>
+          <Link
+            href={`/snippets/${snippet.id}/edit`}
+            className="p-2 border rounded"
+          >
+            Edit
+          </Link>
           <form action={deleteSnippetAction}>
-           <button className="p-2 border rounded">Delete</button>
+            <button className="p-2 border rounded">Delete</button>
           </form>
         </div>
       </div>
@@ -37,4 +42,14 @@ export default async function SnippetShowPage(props: SnippetShowPageProps) {
       </pre>
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const snippets = await db.snippet.findMany();
+
+  return snippets.map((snippet) => {
+    return {
+      id: snippet.id.toString(),
+    };
+  });
 }
